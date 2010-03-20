@@ -1,6 +1,11 @@
 # cd
 alias ..='cd ..'
 
+# rm
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+
 # ls
 alias ls="ls -F"
 alias l="ls -lAh"
@@ -17,6 +22,8 @@ alias gco='git checkout'
 alias gb='git branch'
 alias gs='git status'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
+alias uncommit='git reset --soft HEAD^'
+alias unstage='git reset HEAD'
 
 # rails
 alias sc='script/console'
@@ -30,3 +37,6 @@ alias rst='touch tmp/restart.txt'
 
 # commands starting with % for pasting from web
 alias %=' '
+
+# du
+alias duh="du -s * 2>/dev/null | sort -n | cut -f2 | xargs du -sh 2>/dev/null"
