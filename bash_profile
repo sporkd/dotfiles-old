@@ -10,3 +10,6 @@ fi
 if [ -f ~/.localrc ]; then
   . ~/.localrc
 fi
+
+# rvm
+if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
