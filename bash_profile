@@ -1,15 +1,27 @@
-source ~/.bash/aliases
-source ~/.bash/completions
-source ~/.bash/paths
-source ~/.bash/config
-
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi
 
-if [ -f ~/.localrc ]; then
-  . ~/.localrc
+. ~/.paths
+. ~/.bash/config
+. ~/.aliases
+. ~/.zsh/aliases
+. ~/.bash/aliases
+. ~/.bash/completions
+
+if [ -f ~/.distro ]; then
+  . ~/.distro
 fi
 
-# rvm
-if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
+if [ -f ~/.personal ]; then
+  . ~/.personal
+fi
+
+if [ -f ~/.local ]; then
+  . ~/.local
+fi
+
+# Ruby Version Manager
+if [[ -s ~/.rvm/scripts/rvm ]]; then
+  . ~/.rvm/scripts/rvm
+fi

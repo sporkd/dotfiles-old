@@ -1,8 +1,5 @@
 export PS1="\w$ "
 export EDITOR='vim'
 
-# Colors
-export CLICOLOR=true
-
 # Bash History Settings
 export HISTSIZE=5000

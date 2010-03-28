@@ -1,9 +1,17 @@
+. ~/.paths
 . ~/.zsh/config
+. ~/.aliases
 . ~/.zsh/aliases
 . ~/.zsh/completion
 
-# use .localrc for settings specific to one system
-[[ -f ~/.localrc ]] && .  ~/.localrc
+# Distribution Specific settings
+[[ -f ~/.distro ]] && . ~/.distro
 
-# rvm
-if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
+# Hook for dotfiles containing sensitive data 
+[[ -f ~/.personal ]] && . ~/.personal
+
+# Hook for settings specific to one system
+[[ -f ~/.local ]] && . ~/.local
+
+# Ruby Version Manager
+[[ -s ~/.rvm/scripts/rvm ]] && . ~/.rvm/scripts/rvm
