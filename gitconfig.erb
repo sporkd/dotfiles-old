@@ -1,16 +1,23 @@
 [user]
 	name = <%= print("Your Name: "); STDOUT.flush; STDIN.gets.chomp %>
 	email = <%= print("Your Email: "); STDOUT.flush; STDIN.gets.chomp %>
-[alias]
-	co = checkout
 [color]
 	diff = auto
 	status = auto
 	branch = auto
 [core]
 	autocrlf = input
-	excludesfile = <%= ENV['HOME'] %>/.gitignore
+	excludesfile = ~/.gitignore
 [apply]
 	whitespace = nowarn
 [format]
-	pretty = %C(yellow)%h%Creset %s
+  pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
+[alias]
+  dic = diff --cached
+  plre = pull --rebase
+  out = log origin..HEAD
+  qpl = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%Creset %s\" origin/production..origin/master
+  graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  uncommit = reset --soft HEAD^
+  unstage = reset HEAD
+  unmerge = reset --hard

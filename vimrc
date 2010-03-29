@@ -88,6 +88,8 @@ map <Leader>c :Rcontroller
 map <Leader>v :Rview 
 map <Leader>u :Runittest 
 map <Leader>f :Rfunctionaltest 
+map <Leader>i :Rintegrationtest 
+map <Leader>h :Rhelper 
 map <Leader>tm :RTmodel 
 map <Leader>tc :RTcontroller 
 map <Leader>tv :RTview 
@@ -98,6 +100,7 @@ map <Leader>sc :RScontroller
 map <Leader>sv :RSview 
 map <Leader>su :RSunittest 
 map <Leader>sf :RSfunctionaltest 
+map <Leader>si :RSintegrationtest 
 
 " Hide search highlighting
 map <Leader>h :set invhls <CR>
@@ -184,3 +187,7 @@ let g:fuf_splitPathMatching=1
 
 " Open URL
 command -bar -nargs=1 OpenURL :!open <args>
+
+" Window navigation
+nmap <C-J> <C-W><C-J>
+nmap <C-K> <C-W><C-K>

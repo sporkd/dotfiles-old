@@ -1,19 +1,24 @@
 if [[ -n $SSH_CONNECTION ]]; then
   export PS1='%m:%3~$(git_info_for_prompt)%# '
+  #export PS1='[${SSH_CONNECTION+"%n@%m:"}%~] '
 else
   export PS1='%3~$(git_info_for_prompt)%# '
 fi
 
-export EDITOR='vim'
+export EDITOR=vim
 
 fpath=(~/.zsh/functions $fpath)
 
 autoload -U ~/.zsh/functions/*(:t)
 
+# History
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=10000
 REPORTTIME=10 # print elapsed time when more than 10 seconds
+
+# ignore duplicate history entries
+#setopt histignoredups
 
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
@@ -35,10 +40,16 @@ setopt HIST_REDUCE_BLANKS
 
 zle -N newtab
 
+# vi mode
+bindkey -v
+
 bindkey '^[^[[D' backward-word
 bindkey '^[^[[C' forward-word
 bindkey '^[[5D' beginning-of-line
 bindkey '^[[5C' end-of-line
 bindkey '^[[3~' delete-char
 bindkey '^[^N' newtab
-bindkey '^?' backward-delete-char 
+bindkey '^?' backward-delete-char
+
+# use incremental search
+#bindkey ^R history-incremental-search-backward

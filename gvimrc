@@ -1,6 +1,21 @@
-set guioptions-=T " hide toolbar
-set lines=55 columns=100
+set lines=55 columns=140
 
-colorscheme elflord
+" Color scheme
+colorscheme vividchalk
 
-set guifont=DejaVu\ Sans\ Mono:h13
+" Font
+set guifont=Monaco:h13.00
+
+" No audible bell
+set vb
+
+" No toolbar
+set guioptions-=T
+
+" Use console dialogs
+set guioptions+=c
+
+" Local config
+if filereadable($HOME . "/.gvimrc.local")
+  source ~/.gvimrc.local
+endif
