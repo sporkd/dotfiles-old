@@ -16,9 +16,6 @@ HISTSIZE=1000
 SAVEHIST=10000
 REPORTTIME=10 # print elapsed time when more than 10 seconds
 
-# ignore duplicate history entries
-#setopt histignoredups
-
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
 setopt NO_LIST_BEEP
@@ -51,4 +48,4 @@ bindkey '^[^N' newtab
 bindkey '^?' backward-delete-char
 
 # use incremental search
-#bindkey ^R history-incremental-search-backward
+bindkey ^R history-incremental-search-backward

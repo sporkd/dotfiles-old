@@ -1,1 +1,22 @@
-# Move aliases here
+# cd
+alias ..='cd ..'
+
+# rm
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+
+# ls
+alias ls="ls -F"
+alias l="ls -lAh"
+alias ll="ls -l"
+alias la='ls -A'
+
+# history
+alias hist='history 1'
+
+# commands starting with % for pasting from web
+alias %=' '
+
+# du
+alias duh="du -s * 2>/dev/null | sort -n | cut -f2 | xargs du -sh 2>/dev/null"
