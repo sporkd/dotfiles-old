@@ -1,193 +1,272 @@
-" based on http://github.com/jferris/config_files/blob/master/vimrc
+" ---------------------------------------------------------------------------
+" General
+" ---------------------------------------------------------------------------
 
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
+set nocompatible                      " essential
+set history=1000                      " lots of command line history
+set cf                                " error files / jumping
+set ffs=unix,dos,mac                  " support these files
+filetype plugin indent on             " load filetype plugin
+set isk+=_,$,@,%,#,-                  " none word dividers
+set viminfo='1000,f1,:100,@100,/20
+set modeline                          " make sure modeline support is enabled
+set autoread                          " reload files (no local changes only)
+set tabpagemax=50                     " open 50 tabs max
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+" ---------------------------------------------------------------------------
+" Colors / Theme
+" ---------------------------------------------------------------------------
 
-set nobackup
-set nowritebackup
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" This is an alternative that also works in block mode, but the deleted
-" text is lost and it only works for putting the current register.
-"vnoremap p "_dp
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+if &t_Co > 2 || has("gui_running")
+  if has("terminfo")
+    set t_Co=16
+    set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+    set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+  else
+    set t_Co=16
+    set t_Sf=[3%dm
+    set t_Sb=[4%dm
+  endif
   syntax on
   set hlsearch
+  colorscheme elflord
 endif
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
+" ---------------------------------------------------------------------------
+"  Highlight
+" ---------------------------------------------------------------------------
 
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
+highlight Comment         ctermfg=DarkGrey guifg=#444444
+highlight StatusLineNC    ctermfg=Black ctermbg=DarkGrey cterm=bold
+highlight StatusLine      ctermbg=Black ctermfg=LightGrey
 
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
+" ----------------------------------------------------------------------------
+"   Highlight Trailing Whitespace
+" ----------------------------------------------------------------------------
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+set list listchars=trail:.,tab:>.
+highlight SpecialKey ctermfg=DarkGray ctermbg=Black
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
+" ----------------------------------------------------------------------------
+"  Backups
+" ----------------------------------------------------------------------------
 
-  augroup END
+set nobackup                           " do not keep backups after close
+set nowritebackup                      " do not keep a backup while working
+set noswapfile                         " don't keep swp files either
+set backupdir=$HOME/.vim/backup        " store backups under ~/.vim/backup
+set backupcopy=yes                     " keep attributes of original file
+set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
+set directory=~/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
 
-else
+" ----------------------------------------------------------------------------
+"  UI
+" ----------------------------------------------------------------------------
 
-  set autoindent		" always set autoindenting on
+set ruler                  " show the cursor position all the time
+set noshowcmd              " don't display incomplete commands
+set nolazyredraw           " turn off lazy redraw
+set number                 " line numbers
+set wildmenu               " turn on wild menu
+set wildmode=list:longest,full
+set ch=2                   " command line height
+set backspace=2            " allow backspacing over everything in insert mode
+set whichwrap+=<,>,h,l,[,] " backspace and cursor keys wrap to
+set shortmess=filtIoOA     " shorten messages
+set report=0               " tell us about changes
+set nostartofline          " don't jump to the start of line when scrolling
 
-endif " has("autocmd")
+" ----------------------------------------------------------------------------
+" Visual Cues
+" ----------------------------------------------------------------------------
 
-" if has("folding")
-  " set foldenable
-  " set foldmethod=syntax
-  " set foldlevel=1
-  " set foldnestmax=2
-  " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
-" endif
+set showmatch              " brackets/braces that is
+set mat=5                  " duration to show matching brace (1/10 sec)
+set incsearch              " do incremental searching
+set laststatus=2           " always show the status line
+set ignorecase             " ignore case when searching
+set nohlsearch             " don't highlight searches
+set visualbell             " shut the fuck up
 
-" Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
-set expandtab
+" ----------------------------------------------------------------------------
+" Text Formatting
+" ----------------------------------------------------------------------------
 
-" Always display the status line
-set laststatus=2
+set autoindent             " automatic indent new lines
+set smartindent            " be smart about it
+set nowrap                 " do not wrap lines
+set softtabstop=2          " yep, two
+set shiftwidth=2           " ..
+set tabstop=4
+set expandtab              " expand tabs to spaces
+set nosmarttab             " fuck tabs
+set formatoptions+=n       " support for numbered/bullet lists
+set textwidth=76           " wrap at 76 chars by default
+set virtualedit=block      " allow virtual edit in visual block ..
 
-" \ is the leader character
-let mapleader = ","
+" ----------------------------------------------------------------------------
+"  Mappings
+" ----------------------------------------------------------------------------
 
-" Edit the README_FOR_APP (makes :R commands work)
-map <Leader>R :e doc/README_FOR_APP<CR>
+" quickfix mappings
+map <F7>  :cn<CR>
+map <S-F7> :cp<CR>
+map <A-F7> :copen<CR>
 
-" Leader shortcuts for Rails commands
-map <Leader>m :Rmodel 
-map <Leader>c :Rcontroller 
-map <Leader>v :Rview 
-map <Leader>u :Runittest 
-map <Leader>f :Rfunctionaltest 
-map <Leader>i :Rintegrationtest 
-map <Leader>h :Rhelper 
-map <Leader>tm :RTmodel 
-map <Leader>tc :RTcontroller 
-map <Leader>tv :RTview 
-map <Leader>tu :RTunittest 
-map <Leader>tf :RTfunctionaltest 
-map <Leader>sm :RSmodel 
-map <Leader>sc :RScontroller 
-map <Leader>sv :RSview 
-map <Leader>su :RSunittest 
-map <Leader>sf :RSfunctionaltest 
-map <Leader>si :RSintegrationtest 
+" emacs movement keybindings in insert mode
+imap <C-a> <C-o>0
+imap <C-e> <C-o>$
+map <C-e> $
+map <C-a> 0
 
-" Hide search highlighting
-map <Leader>h :set invhls <CR>
+" reflow paragraph with Q in normal and visual mode
+nnoremap Q gqap
+vnoremap Q gq
 
-" Opens an edit command with the path of the currently edited file filled in
-" Normal mode: <Leader>e
-map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+" sane movement with wrap turned on
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
 
-" Opens a tab edit command with the path of the currently edited file filled in
-" Normal mode: <Leader>t
-map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+" do not menu with left / right in command line
+cnoremap <Left> <Space><BS><Left>
+cnoremap <Right> <Space><BS><Right>
 
-" Move lines up and down
-map <Leader>> :m +1 <CR>
-map <Leader>< :m -2 <CR>
+" ----------------------------------------------------------------------------
+"  Auto Commands
+" ----------------------------------------------------------------------------
 
-" Inserts the path of the currently edited file into a command
-" Command mode: Ctrl+P
-cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+" jump to last position of buffer when opening
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") |
+                         \ exe "normal g'\"" | endif
 
-" Maps autocomplete to tab
-imap <Tab> <C-N>
+" don't use cindent for javascript
+autocmd FileType javascript setlocal nocindent
 
-" Duplicate a selection
-" Visual mode: D
-vmap D y'>p
+" ----------------------------------------------------------------------------
+"  dbext  - connect to any database and do crazy shit
+" ----------------------------------------------------------------------------
 
-" For Haml
-au! BufRead,BufNewFile *.haml         setfiletype haml
+let g:dbext_default_buffer_lines = 20            " result buffer size
+let g:dbext_default_use_result_buffer = 1
+let g:dbext_default_use_sep_result_buffer = 1    " multiple result buffers
+let g:dbext_default_type = 'pgsql'
+let g:dbext_default_replace_title = 1
+let g:dbext_default_history_file = '~/.dbext_history'
+let g:dbext_default_history_size = 200
 
-" No Help, please
-nmap <F1> <Esc>
+" ----------------------------------------------------------------------------
+"  LookupFile
+" ----------------------------------------------------------------------------
 
-" Press ^F from insert mode to insert the current file name
-imap <C-F> <C-R>=expand("%")<CR>
+let g:LookupFile_TagExpr = '".ftags"'
+let g:LookupFile_MinPatLength = 2
+let g:LookupFile_ShowFiller = 0                  " fix menu flashiness
+let g:LookupFile_PreservePatternHistory = 1      " preserve sorted history?
+let g:LookupFile_PreserveLastPattern = 0         " start with last pattern?
 
-" Press Shift+P while in visual mode to replace the selection without
-" overwriting the default register
-vmap P p :call setreg('"', getreg('0')) <CR>
+nmap <unique> <silent> <D-f> <Plug>LookupFile
+imap <unique> <silent> <D-f> <C-O><Plug>LookupFile
 
-" Display extra whitespace
-" set list listchars=tab:»·,trail:·
+" ----------------------------------------------------------------------------
+"  PATH on MacOS X
+" ----------------------------------------------------------------------------
 
-" Edit routes
-command! Rroutes :e config/routes.rb
-command! RTroutes :tabe config/routes.rb
-
-" Local config
-if filereadable(".vimrc.local")
-  source .vimrc.local
+if system('uname') =~ 'Darwin'
+  let $PATH = $HOME .
+    \ '/usr/local/bin:/usr/local/sbin:' .
+    \ '/usr/pkg/bin:' .
+    \ '/opt/local/bin:/opt/local/sbin:' .
+    \ $PATH
 endif
 
-" Use Ack instead of Grep when available
-if executable("ack")
-  set grepprg=ack\ -H\ --nogroup\ --nocolor
-endif
+" ---------------------------------------------------------------------------
+"  sh config
+" ---------------------------------------------------------------------------
 
-" Color scheme
-colorscheme elflord
-" highlight NonText guibg=#060606
-" highlight Folded  guibg=#0A0A0A guifg=#9090D0
+au Filetype sh,bash set ts=4 sts=4 shiftwidth=4 expandtab
+let g:is_bash = 1
 
-" Numbers
-set number
-set numberwidth=5
+" ---------------------------------------------------------------------------
+"  Misc mappings
+" ---------------------------------------------------------------------------
 
-" Snippets are activated by Shift+Tab
-let g:snippetsEmu_key = "<S-Tab>"
+map ,f :tabnew <cfile><CR>
+map ,d :e %:h/<CR>
+map ,t :tabnew %<CR>
+map ,dt :tabnew %:h/<CR>
 
-" Tab completion options
-" (only complete to the longest unambiguous match, and show a menu)
-set completeopt=longest,menu
-set wildmode=list:longest,list:full
-set complete=.,t
+" I use these commands in my TODO file
+map ,a o<ESC>:r!date +'\%A, \%B \%d, \%Y'<CR>:r!date +'\%A, \%B \%d, \%Y' \| sed 's/./-/g'<CR>A<CR><ESC>
+map ,o o[ ] 
+map ,O O[ ] 
+map ,x :s/^\[ \]/[x]/<CR>
+map ,X :s/^\[x\]/[ ]/<CR>
 
-" case only matters with mixed case expressions
-set ignorecase
-set smartcase
+" ---------------------------------------------------------------------------
+"  Open URL on current line in browser
+" ---------------------------------------------------------------------------
 
-" Tags
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
+function! Browser ()
+    let line0 = getline (".")
+    let line = matchstr (line0, "http[^ )]*")
+    let line = escape (line, "#?&;|%")
+    exec ':silent !open ' . "\"" . line . "\""
+endfunction
+map ,w :call Browser ()<CR>
 
-let g:fuf_splitPathMatching=1
+" ---------------------------------------------------------------------------
+"  Strip all trailing whitespace in file
+" ---------------------------------------------------------------------------
 
-" Open URL
-command -bar -nargs=1 OpenURL :!open <args>
+function! StripWhitespace ()
+    exec ':%s/ \+$//gc'
+endfunction
+map ,s :call StripWhitespace ()<CR>
 
-" Window navigation
-nmap <C-J> <C-W><C-J>
-nmap <C-K> <C-W><C-K>
+" ---------------------------------------------------------------------------
+" File Types
+" ---------------------------------------------------------------------------
+
+au BufRead,BufNewFile *.rpdf       set ft=ruby
+au BufRead,BufNewFile *.rxls       set ft=ruby
+au BufRead,BufNewFile *.ru         set ft=ruby
+au BufRead,BufNewFile *.god        set ft=ruby
+au BufRead,BufNewFile *.rtxt       set ft=html spell
+au BufRead,BufNewFile *.sql        set ft=pgsql
+au BufRead,BufNewFile *.rl         set ft=ragel
+au BufRead,BufNewFile *.svg        set ft=svg
+au BufRead,BufNewFile *.haml       set ft=haml
+au BufRead,BufNewFile *.md         set ft=mkd tw=72 ts=2 sw=2 expandtab
+au BufRead,BufNewFile *.markdown   set ft=mkd tw=72 ts=2 sw=2 expandtab
+au BufRead,BufNewFile *.ron        set ft=mkd tw=65 ts=2 sw=2 expandtab
+
+au Filetype gitcommit set tw=68 spell
+au Filetype ruby      set textwidth=80 ts=2
+au Filetype haml      set ts=2 sw=2 sts=0 expandtab tw=120
+au Filetype html,xml,xsl,rhtml source $HOME/.vim/scripts/closetag.vim
+
+" --------------------------------------------------------------------------
+" ManPageView
+" --------------------------------------------------------------------------
+
+let g:manpageview_pgm= 'man -P "/usr/bin/less -is"'
+let $MANPAGER = '/usr/bin/less -is'
+
+" --------------------------------------------------------------------------
+" rails.vim
+" --------------------------------------------------------------------------
+
+let g:rails_subversion=1
+let g:rails_menu=2
+
+" make file executable
+command -nargs=* Xe !chmod +x <args>
+command! -nargs=0 Xe !chmod +x %

@@ -1,2 +1,5 @@
 # Colors
 export CLICOLOR=true
+
+# Aliases
+alias gvim='mvim'

@@ -4,7 +4,7 @@ require 'erb'
 desc "install the dot files into user's home directory"
 task :install do
   distro = `uname`.strip.downcase
-  excludes = %w[Rakefile README.rdoc LICENSE distro]
+  excludes = %w[Rakefile README.rdoc LICENSE distro bin]
 
   distro_files = Dir["distro/#{distro}/*"].collect { |f| f.sub("distro/#{distro}/", '') }
   default_files = Dir["*"] - excludes - distro_files
