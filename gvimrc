@@ -7,9 +7,9 @@ colorscheme vividchalk
 
 let uname = substitute(system('uname'), "\n", "", "g")
 if uname == "Linux"
-  set guifont=Monospace\ 9 
+  set guifont=Monospace\ 9
 elseif uname == "Darwin"
-  set guifont=Monaco\ 13
+  set guifont=Monaco:h13
 end
 set anti               " antialiasing
 set guioptions=gemc
