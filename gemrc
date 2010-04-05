@@ -4,6 +4,7 @@ gem: --no-ri --no-rdoc -n/usr/local/bin
 :update_sources: true
 :sources:
 - http://rubygems.org
+- http://gems.github.com
 :backtrace: false
 :bulk_threshold: 1000
 :benchmark: false

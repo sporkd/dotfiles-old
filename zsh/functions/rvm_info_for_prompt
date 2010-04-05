@@ -1,0 +1,6 @@
+if [ -x"~/.rvm/bin/rvm-prompt" ]; then
+  local ivg="$(~/.rvm/bin/rvm-prompt i v g)"
+  if [[ (-n "$ivg")  &&  "$ivg" != "system" ]]; then
+    printf "[%s]" "$ivg"
+  fi
+fi

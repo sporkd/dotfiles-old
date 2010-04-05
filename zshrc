@@ -8,7 +8,7 @@
 [[ -f ~/.distro ]] && . ~/.distro
 
 # Hook for dotfiles containing sensitive data 
-[[ -f ~/.personal ]] && . ~/.personal
+[[ -f ~/.private ]] && . ~/.private
 
 # Hook for settings specific to one system
 [[ -f ~/.local ]] && . ~/.local
