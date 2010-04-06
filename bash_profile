@@ -9,16 +9,16 @@ fi
 . ~/.bash/aliases
 . ~/.bash/completions
 
-if [ -f ~/.distro ]; then
-  . ~/.distro
+if [ -f ~/.distrorc ]; then
+  . ~/.distrorc
 fi
 
-if [ -f ~/.personal ]; then
-  . ~/.personal
+if [ -f ~/.privaterc ]; then
+  . ~/.privaterc
 fi
 
-if [ -f ~/.local ]; then
-  . ~/.local
+if [ -f ~/.localrc ]; then
+  . ~/.localrc
 fi
 
 # Ruby Version Manager

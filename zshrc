@@ -5,13 +5,13 @@
 . ~/.zsh/completion
 
 # Distribution Specific settings
-[[ -f ~/.distro ]] && . ~/.distro
+[[ -f ~/.distrorc ]] && . ~/.distrorc
 
 # Hook for dotfiles containing sensitive data 
-[[ -f ~/.private ]] && . ~/.private
+[[ -f ~/.privaterc ]] && . ~/.privaterc
 
 # Hook for settings specific to one system
-[[ -f ~/.local ]] && . ~/.local
+[[ -f ~/.localrc ]] && . ~/.localrc
 
 # Ruby Version Manager
 [[ -s ~/.rvm/scripts/rvm ]] && . ~/.rvm/scripts/rvm
