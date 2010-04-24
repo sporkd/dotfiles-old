@@ -1,0 +1,8 @@
+<% if %x[uname].strip == "Darwin" %>
+rvm_archflags="-arch x86_64"
+<% elsif %x[uname -m].strip == "x86_64" %>
+rvm_archflags="-arch x86_64"
+<% end %>
+
+# Reset to default ruby when leaving project dir
+rvm_project_rvmrc_default=1
