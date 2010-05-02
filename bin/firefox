@@ -34,6 +34,13 @@ die() {
 }
 
 test -n "$PROFILE" ||
-die "You must specify a profile"
+die "You must specify a firefox profile"
+
+test -n "$URL" || URL="http://www.google.com"
+
+test "$PROFILE" = 'prompt' && {
+  /Applications/Firefox\ "$VERSION".app/Contents/MacOS/firefox-bin --profilemanager -no-remote "$URL" &
+  exit
+}
 
 /Applications/Firefox\ "$VERSION".app/Contents/MacOS/firefox-bin -P "$PROFILE" -no-remote "$URL" &
