@@ -9,3 +9,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
+# aliases
+alias clip='xclip -selection c'
+alias winshare='sudo mount -t vboxsf windows ~/Windows'  # VirtualBox

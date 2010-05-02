@@ -35,13 +35,10 @@ alias global='rvm gemset use global'
 # homebrew
 alias brewup='brew update'
 
-# firefox
-alias ff='firefox 3.6 3.6'      # my default profile
-alias ffp='firefox 3.6 prompt'  # prompt for profile manager
-alias fftor='firefox 3.6 tor'
-
 # mysql
+alias mysqlserver='/usr/local/share/mysql/mysql.server'
 alias mysqlstart='/usr/local/share/mysql/mysql.server start'
+alias mysqlstop='/usr/local/share/mysql/mysql.server stop'
 
 # rails
 alias sc='$(git top)script/console'
@@ -52,3 +49,8 @@ alias tlog='tail -f log/development.log'
 alias scaffold='$(git top)script/generate scaffold'
 alias migrate='rake db:migrate db:test:clone'
 alias rst='touch $(git top)tmp/restart.txt'
+
+# Services
+alias gitwebserv='sudo -H -u git gitauth webapp'  # GitAuth
+#alias memstart='/opt/local/bin/memcached -d -m 64 -l localhost -p 11211'
+#alias startvnc='vncserver -depth 16 &'

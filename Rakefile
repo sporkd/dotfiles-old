@@ -11,12 +11,15 @@ task :install do
 
   default_files.each { |file| process_file(file) }
   distro_files.each { |file| process_file(file, distro) }
+
+  FileUtils.mkdir_p(File.join(ENV['HOME'], 'code'))
+  FileUtils.mkdir_p(File.join(ENV['HOME'], 'projects'))
 end
 
 def process_file(file, distro=nil)
   replace_all = false
-  path = distro ? "distro/#{distro}/" : "" 
-  
+  path = distro ? "distro/#{distro}/" : ""
+
   dotfile = File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
 
   File.unlink(dotfile) if File.symlink?(dotfile)

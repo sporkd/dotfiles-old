@@ -1,5 +1,11 @@
-# Colors
+# colors
 export CLICOLOR=true
 
-# Aliases
+# aliases
 alias gvim='mvim'
+alias vhosts='sudo vi /private/etc/apache2/extra/httpd-vhosts.conf'  # edit apache vhosts
+
+# firefox aliases
+alias ff='firefox 3.6 3.6'      # my default profile
+alias ffp='firefox 3.6 prompt'  # prompt for profile manager
+alias fftor='firefox 3.6 tor'
