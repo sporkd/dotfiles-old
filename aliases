@@ -32,6 +32,7 @@ alias r19='rvm ruby-1.9.2-head'
 alias gemsets='rvm gemset list'
 alias global='rvm gemset use global'
 alias globalgems='global; gem install bundler gemcutter git gemcutter rak; mysqlgeminstall'
+alias lg='ls $(rvm gemdir)/gems'
 
 # homebrew
 alias brewup='brew update'
