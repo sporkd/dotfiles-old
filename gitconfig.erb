@@ -13,12 +13,18 @@
 [format]
   pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
 [alias]
+  st = status
+  co = checkout
+  br = branch -a
   dic = diff --cached
+  changes = diff --name-status -r
+  diffstat = diff --stat -r
   plre = pull --rebase
   out = log origin..HEAD
   qpl = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%Creset %s\" origin/production..origin/master
   graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
   uncommit = reset --soft HEAD^
   unstage = reset HEAD
-  unmerge = reset --hard
+  undo = reset --hard
+  cleanreset = !git reset --hard && git clean -f
   top = rev-parse --show-cdup
