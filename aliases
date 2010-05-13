@@ -25,6 +25,7 @@ alias duh="du -s * 2>/dev/null | sort -n | cut -f2 | xargs du -sh 2>/dev/null"
 alias fps='ps -ef | grep'
 
 # rvm
+alias use='rvm gemset use'
 alias rvmall='rvm list known'
 alias rvmup='rvm update --head'
 alias r18='rvm ruby-1.8.7-p174'
