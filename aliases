@@ -31,8 +31,7 @@ alias rvmup='rvm update --head'
 alias r18='rvm ruby-1.8.7-p174'
 alias r19='rvm ruby-1.9.2-head'
 alias gemsets='rvm gemset list'
-alias global='rvm gemset use global'
-alias initglobal='global; gem install bundler gemcutter jeweler git heroku capistrano-ext heroku; installmysql'
+alias initglobal='rvm gemset use global; gem install bundler jeweler git capistrano-ext heroku; installmysql'
 alias lsgems='ls $(rvm gemdir)/gems'
 
 # homebrew
@@ -43,6 +42,10 @@ alias mysqlserver='/usr/local/share/mysql/mysql.server'
 alias mysqlstart='/usr/local/share/mysql/mysql.server start'
 alias mysqlstop='/usr/local/share/mysql/mysql.server stop'
 alias installmysql='gem install mysql -- --with-mysql-dir=/usr/local --with-mysql-config=/usr/local/bin/mysql_config'
+
+# postgresql
+alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 # rails
 alias sc='$(git top)script/console'
@@ -58,3 +61,6 @@ alias rst='touch $(git top)tmp/restart.txt'
 alias gitwebserv='sudo -H -u git gitauth webapp'  # GitAuth
 #alias memstart='/opt/local/bin/memcached -d -m 64 -l localhost -p 11211'
 #alias startvnc='vncserver -depth 16 &'
+
+# cucumber
+alias cuke='cucumber features -f pretty'
