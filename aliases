@@ -48,12 +48,12 @@ alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/serv
 alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 # rails
-alias sc='$(git top)script/console'
-alias ss='$(git top)script/server'
-alias sg='$(git top)script/generate'
-alias a='autotest -rails'
+alias con='$(git top)script/rails console'
+alias ser='$(git top)script/rails server'
+alias gen='$(git top)script/rails generate'
+alias auto='autotest -rails'
 alias tlog='tail -f log/development.log'
-alias scaffold='$(git top)script/generate scaffold'
+alias scaf='$(git top)script/rails generate scaffold'
 alias migrate='rake db:migrate db:test:clone'
 alias rst='touch $(git top)tmp/restart.txt'
 
