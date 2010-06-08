@@ -48,8 +48,8 @@ alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/serv
 alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 # rails
-alias con='$(git top)script/rails console'
-alias ser='$(git top)script/rails server'
+alias cons='$(git top)script/rails console'
+alias serv='$(git top)script/rails server'
 alias gen='$(git top)script/rails generate'
 alias auto='autotest -rails'
 alias tlog='tail -f log/development.log'
@@ -63,4 +63,5 @@ alias gitwebserv='sudo -H -u git gitauth webapp'  # GitAuth
 #alias startvnc='vncserver -depth 16 &'
 
 # cucumber
-alias cuke='cucumber features -f pretty'
+alias cuke='cucumber features --format pretty'
+
