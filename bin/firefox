@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env ruby
 
 ## Usage: firefox version profile [URL]
 ## Open a specific version of Firefox using a specific profile
@@ -8,39 +8,35 @@
 ## mv /Applications/FireFox.app /Applications/FireFox\ 3.6.app
 ##
 ## You can create new profiles like:
-## /Applications/FireFox.app\ 3.6.app --profilemanager
+## $firefox -n 3.6 --prompt
 ##
 ## Examples:
 ## Open github.com in firefox 3.6 using the default profile:
-##   $ firefox 3.6 default http://github.com
+##   $ firefox -n 3.6 -p default http://github.com
 ##
 
-set -e
+require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', 'trollop')
 
-VERSION="$1"
-PROFILE="$2"
-URL="$3"
+opts = Trollop::options do
+  opt :number,   "Firefox version number", :default => '3.6'
+  opt :profile, "Firefox profile name",   :default => 'default'
+  opt :prompt,  "Open profile manager",   :default => false
+end
 
-# usage and help
-test -z "$VERSION" -o "$VERSION" = '--help' && {
-  cat "$0" | grep '^##' | cut -c4- 1>&2
-  exit 1
-}
+version = opts[:number]
+profile = opts[:profile]
+prompt = opts[:prompt]
+url = ARGV.first || 'http://google.com'
 
-# bail out with message to stderr and exit status 1
-die() {
-    echo "$(basename $0):" "$@" 1>&2
-    exit 1
-}
+firefox_bin = "/Applications/Firefox\\ #{version}.app/Contents/MacOS/firefox-bin"
+if !File.file?(firefox_bin.gsub('\\', ''))
+  puts "Could not find /Applications/Firefox #{version}.app so using /Applications/Firefox.app instead"
+  firefox_bin = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+  Trollop::die :number, "No installed version of firefox could be found" if !File.file?(firefox_bin)
+end
 
-test -n "$PROFILE" ||
-die "You must specify a firefox profile"
-
-test -n "$URL" || URL="http://www.google.com"
-
-test "$PROFILE" = 'prompt' && {
-  /Applications/Firefox\ "$VERSION".app/Contents/MacOS/firefox-bin --profilemanager -no-remote "$URL" &
-  exit
-}
-
-/Applications/Firefox\ "$VERSION".app/Contents/MacOS/firefox-bin -P "$PROFILE" -no-remote "$URL" &
+if prompt
+ exec "#{firefox_bin} --profilemanager -no-remote #{url} &"
+else
+  exec "#{firefox_bin} -P #{profile} -no-remote #{url} &"
+end
