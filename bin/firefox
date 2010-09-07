@@ -19,12 +19,12 @@ require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', 'trollop')
 
 opts = Trollop::options do
   opt :number,   "Firefox version number", :default => '3.6'
-  opt :profile, "Firefox profile name",   :default => 'default'
-  opt :prompt,  "Open profile manager",   :default => false
+  opt :profile, "Firefox profile name",    :type => :string
+  opt :prompt,  "Open profile manager",    :default => false
 end
 
 version = opts[:number]
-profile = opts[:profile]
+profile = opts[:profile] || version
 prompt = opts[:prompt]
 url = ARGV.first || 'http://google.com'
 
