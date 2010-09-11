@@ -5,6 +5,7 @@ else
 fi
 
 export EDITOR=vim
+#export EDITOR='mate -w'
 
 fpath=(~/.zsh/functions $fpath)
 
