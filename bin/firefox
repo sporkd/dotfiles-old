@@ -1,38 +1,41 @@
 #!/usr/bin/env ruby
 
-## Usage: firefox version profile [URL]
-## Open a specific version of Firefox using a specific profile
-## and an optional URL 
-##
-## Requires renaming FireFox apps to include a space + version:
-## mv /Applications/FireFox.app /Applications/FireFox\ 3.6.app
-##
-## You can create new profiles like:
-## $firefox -n 3.6 --prompt
-##
-## Examples:
-## Open github.com in firefox 3.6 using the default profile:
-##   $ firefox -n 3.6 -p default http://github.com
-##
+# Usage: firefox -r release -p profile [URL]
+# Open a specific version of Firefox using a specific profile
+# and an optional URL 
+#
+# Requires renaming FireFox apps to include a space + version number:
+# mv /Applications/FireFox.app /Applications/FireFox\ 3.6.app
+#
+# You can create new profiles for firefox 3.6 like:
+# $firefox -r 3.6 --prompt
+#
+# Examples:
+# Open github.com in firefox 3.6 using a profile called 3.6:
+#   $ firefox -r 3.6 http://github.com
+#
+# Open github.com in firefox 3.6 using a profile called test:
+#   $ firefox -r 3.6 -p test http://github.com
+#
 
 require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', 'trollop')
 
 opts = Trollop::options do
-  opt :number,   "Firefox version number", :default => '3.6'
+  opt :release,   "Firefox release (version) number", :default => '3.6'
   opt :profile, "Firefox profile name",    :type => :string
   opt :prompt,  "Open profile manager",    :default => false
 end
 
-version = opts[:number]
-profile = opts[:profile] || version
+release = opts[:release]
+profile = opts[:profile] || release
 prompt = opts[:prompt]
 url = ARGV.first || 'http://google.com'
 
-firefox_bin = "/Applications/Firefox\\ #{version}.app/Contents/MacOS/firefox-bin"
+firefox_bin = "/Applications/Firefox\\ #{release}.app/Contents/MacOS/firefox-bin"
 if !File.file?(firefox_bin.gsub('\\', ''))
-  puts "Could not find /Applications/Firefox #{version}.app so using /Applications/Firefox.app instead"
+  puts "Could not find /Applications/Firefox #{release}.app so using /Applications/Firefox.app instead"
   firefox_bin = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-  Trollop::die :number, "No installed version of firefox could be found" if !File.file?(firefox_bin)
+  Trollop::die :release, "No installed version of firefox could be found" if !File.file?(firefox_bin)
 end
 
 if prompt
