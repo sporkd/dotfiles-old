@@ -64,6 +64,7 @@ alias rst='touch $(git top)tmp/restart.txt'
 alias gitwebserv='sudo -H -u git gitauth webapp'  # GitAuth
 #alias memstart='/opt/local/bin/memcached -d -m 64 -l localhost -p 11211'
 #alias startvnc='vncserver -depth 16 &'
+alias mongostart='mongod run --config /usr/local/Cellar/mongodb/1.6.5-x86_64/mongod.conf'
 
 # cucumber
 alias cuke='cucumber features --format pretty'
