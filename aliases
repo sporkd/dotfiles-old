@@ -27,15 +27,14 @@ alias fps='ps -ef | grep'
 # rvm
 alias use='rvm gemset use'
 alias rvmall='rvm list known'
-alias rvmup='rvm update --head'
-alias r18='rvm ruby-1.8.7-p299'
-alias r19='rvm ruby-1.9.2-head'
+alias rvmup='rvm get latest'
+alias r18='rvm ruby-1.8.7-p330'
+alias r19='rvm ruby-1.9.2-p180'
 alias gemdir='cd `rvm gemdir`'
 alias gemsets='rvm gemset list'
 alias initglobal='rvm gemset use global; gem install github jeweler capistrano-ext rak heroku mysql2; installmysql'
 alias gemdir='cd $(rvm gemdir); pwd'
 alias lsgems='ls $(rvm gemdir)/gems'
-alias railspre='gem install rack; gem install rails --pre'
 
 # homebrew
 alias brewup='brew update'
@@ -64,7 +63,7 @@ alias rst='touch $(git top)tmp/restart.txt'
 alias gitwebserv='sudo -H -u git gitauth webapp'  # GitAuth
 #alias memstart='/opt/local/bin/memcached -d -m 64 -l localhost -p 11211'
 #alias startvnc='vncserver -depth 16 &'
-alias mongostart='mongod run --config /usr/local/Cellar/mongodb/1.6.5-x86_64/mongod.conf'
+alias mongostart='mongod run --config /usr/local/Cellar/mongodb/1.8.0-x86_64/mongod.conf'
 
 # cucumber
 alias cuke='cucumber features --format pretty'

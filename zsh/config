@@ -4,6 +4,9 @@ else
   export PS1='%3~$(rvm_info_for_prompt)$(git_info_for_prompt)%# '
 fi
 
+#[[ -s ~/.rvm/contrib/ps1_functions ]] && . ~/.rvm/contrib/ps1_functions
+#ps1_set --prompt ∴
+
 export EDITOR=vim
 #export EDITOR='mate -w'
 
